@@ -1,0 +1,20 @@
+ <span className=\"stat-unit\"> wk</span>\n                 
+ </span>\n                  <span className=\"stat-hint\">\n
+                    {adjustment === \"keep\" && \"Keep inter
+val\"}\n                    {adjustment === \"extend\" && \"
+Extended +2\"}\n                    {adjustment === \"shorte
+n\" && \"Shortened −2\"}\n                    {!adjustment &
+& \"Choose Keep / Extend / Shorten\"}\n                  </s
+pan>\n                </div>\n              </div>\n\n      
+        <div className=\"action-row\">\n                <but
+ton\n                  type=\"button\"\n                  cl
+assName={[\"action-btn action-keep\", adjustment === \"keep\
+" ? \"action-btn-active\" : \"\"].filter(Boolean).join(\" \"
+)}\n                  disabled={noOfWeeks === null}\n       
+           onClick={() => applyAdjustment(\"keep\")}\n      
+          >\n                  Keep\n                </butto
+n>\n                <button\n                  type=\"button
+\"\n                  className={[\"action-btn action-extend
+\", adjustment === \"extend\" ? \"action-btn-active\" : \"\"
+].filter(Boolean).join(\" \")}\n                  disabled={
+noOfWeeks === null}\n                  onClick={() => applyA

@@ -1,0 +1,52 @@
+const fs = require("fs");
+
+const page = fs.readFileSync("src/app/page-compact.tsx", "utf8");
+
+const css = `@import "tailwindcss";
+:root{--bg:#eef2f7;--panel:#fff;--ink:#0f172a;--muted:#64748b;--line:#e2e8f0;--primary:#0ea5e9;--primary-dark:#0284c7;--keep:#10b981;--extend:#3b82f6;--shorten:#f59e0b;--danger:#ef4444;--radius:16px;--shadow:0 10px 30px rgba(15,23,42,.08)}
+*{box-sizing:border-box}html,body{min-height:100%}body{margin:0;color:var(--ink);background:radial-gradient(1200px 600px at 10% -10%,#dbeafe,transparent 55%),var(--bg);font-family:system-ui,sans-serif}
+.app-shell{max-width:1100px;margin:0 auto;padding:1.25rem 1rem 2.5rem}.app-header{display:flex;justify-content:space-between;gap:1rem;margin-bottom:1.25rem}.app-kicker{margin:0;font-size:.75rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--primary-dark)}.app-title{margin:.15rem 0 0;font-size:1.75rem;font-weight:700}.app-desc{margin:.25rem 0 0;color:var(--muted)}
+.stage-pills{display:flex;align-items:center;gap:.5rem}.pill{width:2rem;height:2rem;border-radius:999px;display:grid;place-items:center;font-weight:700;background:#fff;border:2px solid var(--line);color:var(--muted)}.pill-on{background:var(--primary);border-color:var(--primary);color:#fff}.pill-line{width:1.5rem;height:2px;background:var(--line)}
+.stage-grid{display:grid;grid-template-columns:1.35fr .9fr;gap:1rem}.stage-grid-wide{grid-template-columns:1.2fr .95fr}@media(max-width:900px){.stage-grid,.stage-grid-wide{grid-template-columns:1fr}}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:1.15rem 1.2rem}.panel-title{margin:.4rem 0 0;font-size:1.25rem;font-weight:700}.panel-sub{margin:.35rem 0 0;color:var(--muted);font-size:.9rem}
+.badge{display:inline-flex;padding:.2rem .55rem;border-radius:999px;font-size:.7rem;font-weight:700;text-transform:uppercase;background:#e0f2fe;color:#0369a1}
+.date-field{width:100%;text-align:left;border:2px solid var(--line);background:#f8fafc;border-radius:12px;padding:.85rem 1rem;cursor:pointer}.date-field-active{border-color:var(--primary);background:#f0f9ff;box-shadow:0 0 0 3px rgba(14,165,233,.15)}.date-field-label{display:block;font-size:.78rem;font-weight:600;color:var(--muted);margin-bottom:.35rem}.date-field-value{display:block;font-size:1.2rem;font-weight:600}
+.stat-row{display:grid;grid-template-columns:1fr 1fr;gap:.75rem}.stat-card{border:1px solid var(--line);border-radius:12px;padding:.85rem;background:#f8fafc}.stat-card-accent{background:linear-gradient(160deg,#f0f9ff,#e0f2fe);border-color:#bae6fd}.stat-label{display:block;font-size:.72rem;font-weight:700;text-transform:uppercase;color:var(--muted)}.stat-value{display:block;margin-top:.25rem;font-size:1.75rem;font-weight:800}.stat-unit{font-size:.95rem;color:var(--muted)}.stat-hint{display:block;margin-top:.3rem;font-size:.75rem;color:var(--muted)}
+.action-row{display:grid;grid-template-columns:repeat(3,1fr);gap:.55rem}.action-btn{border:2px solid transparent;border-radius:12px;padding:.85rem .5rem;font-weight:700;cursor:pointer;color:#fff}.action-btn:disabled{opacity:.4;cursor:not-allowed}.action-keep{background:var(--keep)}.action-extend{background:var(--extend)}.action-shorten{background:var(--shorten);color:#1c1917}.action-btn-active{border-color:#0f172a;box-shadow:0 0 0 3px rgba(15,23,42,.12)}
+.primary-btn{border:none;border-radius:12px;background:linear-gradient(180deg,#0ea5e9,#0284c7);color:#fff;font-weight:700;padding:.95rem 1rem;cursor:pointer;box-shadow:0 8px 18px rgba(2,132,199,.28)}.primary-btn:disabled{opacity:.45;cursor:not-allowed}.secondary-btn{border:1px solid var(--line);border-radius:10px;background:#fff;font-weight:600;padding:.6rem .9rem;cursor:pointer}.link-btn{border:none;background:none;color:var(--primary-dark);font-weight:600;font-size:.85rem;cursor:pointer}
+.num-key{border:1px solid var(--line);background:#fff;border-radius:12px;min-height:3.4rem;font-size:1.25rem;font-weight:700;cursor:pointer}.num-key-muted{background:#f1f5f9;color:var(--muted);font-size:1.05rem}.num-key-today{background:#0f172a;color:#fff;border-color:#0f172a;font-size:1rem}
+.section-label{margin:0 0 .5rem;font-size:.82rem;font-weight:700}.req{color:#b45309;font-size:.75rem;margin-left:.35rem}.opt{color:var(--muted);font-size:.75rem;margin-left:.35rem}
+.chip-row{display:flex;flex-wrap:wrap;gap:.5rem}.chip{border:2px solid var(--line);background:#fff;border-radius:999px;padding:.55rem .95rem;font-weight:600;cursor:pointer}.chip-selected{background:#0f172a;border-color:#0f172a;color:#fff}.chip-optional.chip-selected{background:#0ea5e9;border-color:#0284c7}
+.barcode-panel{min-height:220px}.barcode-result{display:flex;flex-direction:column;align-items:center;gap:.85rem}.qr-image{width:220px;height:220px;border-radius:12px;border:1px solid var(--line)}.barcode-text{width:100%;margin:0;padding:.85rem 1rem;background:#0f172a;color:#e2e8f0;border-radius:10px;font-size:.78rem;white-space:pre-wrap;font-family:ui-monospace,monospace}.error-text{color:var(--danger);font-weight:600}.app-footer{margin-top:1.25rem;text-align:center;font-size:.78rem;color:var(--muted)}
+`;
+
+const files = [
+  { file: "package.json", data: fs.readFileSync("package.json", "utf8") },
+  { file: "tsconfig.json", data: fs.readFileSync("tsconfig.json", "utf8") },
+  {
+    file: "next.config.ts",
+    data: 'import type { NextConfig } from "next";\nconst nextConfig: NextConfig = {};\nexport default nextConfig;\n',
+  },
+  {
+    file: "postcss.config.mjs",
+    data: 'const config={plugins:{"@tailwindcss/postcss":{}}};\nexport default config;\n',
+  },
+  {
+    file: "src/app/layout.tsx",
+    data: 'import type { Metadata } from "next";\nimport "./globals.css";\nexport const metadata: Metadata = { title: "Injection Calculator", description: "Clinical injection calculator" };\nexport default function RootLayout({ children }: { children: React.ReactNode }) { return (<html lang="en"><body className="antialiased">{children}</body></html>); }\n',
+  },
+  { file: "src/app/globals.css", data: css },
+  { file: "src/app/page.tsx", data: page },
+];
+
+const payload = {
+  target: "production",
+  name: "injection-calculator",
+  teamId: "team_hC9PnVUFWAJDr1j3L9QwNZkZ",
+  projectSettings: { framework: "nextjs" },
+  files,
+};
+
+fs.writeFileSync("final_small.json", JSON.stringify(payload));
+console.log("size", Buffer.byteLength(JSON.stringify(payload)));
+files.forEach((f) => console.log(f.file, f.data.length));

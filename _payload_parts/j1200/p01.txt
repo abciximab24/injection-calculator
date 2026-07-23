@@ -1,0 +1,20 @@
+moduleResolution\": \"bundler\",\n    \"resolveJsonModule\":
+ true,\n    \"isolatedModules\": true,\n    \"jsx\": \"react
+-jsx\",\n    \"incremental\": true,\n    \"plugins\": [\n   
+   {\n        \"name\": \"next\"\n      }\n    ],\n    \"pat
+hs\": {\n      \"@/*\": [\"./src/*\"]\n    }\n  },\n  \"incl
+ude\": [\n    \"next-env.d.ts\",\n    \"**/*.ts\",\n    \"**
+/*.tsx\",\n    \".next/types/**/*.ts\",\n    \".next/dev/typ
+es/**/*.ts\",\n    \"**/*.mts\"\n  ],\n  \"exclude\": [\"nod
+e_modules\"]\n}\n"},{"file":"next.config.ts","data":"import 
+type { NextConfig } from \"next\";\nconst nextConfig: NextCo
+nfig = {};\nexport default nextConfig;\n"},{"file":"postcss.
+config.mjs","data":"const config = { plugins: { \"@tailwindc
+ss/postcss\": {} } };\nexport default config;\n"},{"file":"s
+rc/app/layout.tsx","data":"import type { Metadata } from \"n
+ext\";\nimport \"./globals.css\";\nexport const metadata: Me
+tadata = {\n  title: \"Injection Calculator\",\n  descriptio
+n: \"Clinical injection interval calculator and 2D barcode g
+enerator\",\n};\nexport default function RootLayout({ childr
+en }: { children: React.ReactNode }) {\n  return (\n    <htm
+l lang=\"en\">\n      <body className=\"antialiased\">{child

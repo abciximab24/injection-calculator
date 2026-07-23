@@ -1,0 +1,20 @@
+, filter 0.15s, box-shadow 0.15s;\n}\n\n.action-btn:disabled
+ {\n  opacity: 0.4;\n  cursor: not-allowed;\n}\n\n.action-bt
+n:not(:disabled):active {\n  transform: scale(0.98);\n}\n\n.
+action-keep {\n  background: var(--keep);\n}\n.action-extend
+ {\n  background: var(--extend);\n}\n.action-shorten {\n  ba
+ckground: var(--shorten);\n  color: #1c1917;\n}\n\n.action-b
+tn-active {\n  box-shadow: 0 0 0 3px rgba(15, 23, 42, 0.12);
+\n  filter: brightness(1.05);\n  border-color: #0f172a;\n}\n
+\n.primary-btn {\n  appearance: none;\n  border: none;\n  bo
+rder-radius: 12px;\n  background: linear-gradient(180deg, #0
+ea5e9 0%, #0284c7 100%);\n  color: #fff;\n  font-weight: 700
+;\n  font-size: 1rem;\n  padding: 0.95rem 1rem;\n  cursor: p
+ointer;\n  box-shadow: 0 8px 18px rgba(2, 132, 199, 0.28);\n
+  transition: filter 0.15s, transform 0.1s;\n}\n\n.primary-b
+tn:hover:not(:disabled) {\n  filter: brightness(1.05);\n}\n\
+n.primary-btn:disabled {\n  opacity: 0.45;\n  cursor: not-al
+lowed;\n  box-shadow: none;\n}\n\n.secondary-btn {\n  appear
+ance: none;\n  border: 1px solid var(--line);\n  border-radi
+us: 10px;\n  background: #fff;\n  color: var(--ink);\n  font
+-weight: 600;\n  font-size: 0.9rem;\n  padding: 0.6rem 0.9re

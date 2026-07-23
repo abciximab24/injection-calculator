@@ -1,0 +1,20 @@
+nt-weight: 600;\n  color: var(--ink);\n}\n\n.stat-row {\n  d
+isplay: grid;\n  grid-template-columns: 1fr 1fr;\n  gap: 0.7
+5rem;\n}\n\n.stat-card {\n  border: 1px solid var(--line);\n
+  border-radius: 12px;\n  padding: 0.85rem 0.9rem;\n  backgr
+ound: #f8fafc;\n}\n\n.stat-card-accent {\n  background: line
+ar-gradient(160deg, #f0f9ff 0%, #e0f2fe 100%);\n  border-col
+or: #bae6fd;\n}\n\n.stat-label {\n  display: block;\n  font-
+size: 0.72rem;\n  font-weight: 700;\n  text-transform: upper
+case;\n  letter-spacing: 0.04em;\n  color: var(--muted);\n}\
+n\n.stat-value {\n  display: block;\n  margin-top: 0.25rem;\
+n  font-size: 1.75rem;\n  font-weight: 800;\n  letter-spacin
+g: -0.03em;\n  line-height: 1.1;\n}\n\n.stat-unit {\n  font-
+size: 0.95rem;\n  font-weight: 600;\n  color: var(--muted);\
+n}\n\n.stat-hint {\n  display: block;\n  margin-top: 0.3rem;
+\n  font-size: 0.75rem;\n  color: var(--muted);\n}\n\n.actio
+n-row {\n  display: grid;\n  grid-template-columns: repeat(3
+, 1fr);\n  gap: 0.55rem;\n}\n\n.action-btn {\n  border: 2px 
+solid transparent;\n  border-radius: 12px;\n  padding: 0.85r
+em 0.5rem;\n  font-weight: 700;\n  font-size: 0.92rem;\n  cu
+rsor: pointer;\n  color: #fff;\n  transition: transform 0.1s

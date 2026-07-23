@@ -1,0 +1,20 @@
+ return null;\n  const qWeeks = nextInjectionWeeks + delta;\
+n  const lines = [\n    `<<< List: ${eye} ${drug}; ${eye} ${
+diagnosis}; Q${qWeeks}wk  MP ${eye}`,\n    \"Amsler grid, AR
+EDS2 info\",\n  ];\n  if (onlyEye === \"RE only eye\") lines
+.push(\"Protect RE\");\n  else if (onlyEye === \"LE only eye
+\") lines.push(\"Protect LE\");\n  lines.push(\n    fuOctBef
+ore\n      ? \"FU VR Clinic 1/52 before injection VA IOP MPB
+E\"\n      : \"FU Same Day VR Clinic VA IOP MPBE\"\n  );\n  
+lines.push(\"<<< OCT-m BE n/v MPBE\");\n  return { text: lin
+es.join(\"\\n\"), qWeeks };\n}\n\nconst YEAR_HINT = 2026;\nc
+onst DRUGS: Drug[] = [\"Eylea 8mg\", \"Eylea 2mg\", \"Vabysm
+o\", \"Lucentis\"];\n\n/* ── UI atoms ──────────────────────
+────────────────────── */\nfunction Chip({\n  label,\n  sele
+cted,\n  onClick,\n  optional,\n}: {\n  label: string;\n  se
+lected: boolean;\n  onClick: () => void;\n  optional?: boole
+an;\n}) {\n  return (\n    <button\n      type=\"button\"\n 
+     onClick={onClick}\n      className={[\n        \"chip\"
+,\n        selected ? \"chip-selected\" : \"\",\n        opt
+ional ? \"chip-optional\" : \"\",\n      ]\n        .filter(
+Boolean)\n        .join(\" \")}\n    >\n      {label}\n    <

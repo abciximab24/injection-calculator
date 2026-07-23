@@ -1,0 +1,20 @@
+          <h1 className=\"app-title\">Injection Calculator</
+h1>\n          <p className=\"app-desc\">{stageLabel}</p>\n 
+       </div>\n        <div className=\"stage-pills\">\n    
+      <span className={stage === 1 ? \"pill pill-on\" : \"pi
+ll\"}>1</span>\n          <span className=\"pill-line\" />\n
+          <span className={stage === 2 ? \"pill pill-on\" : 
+\"pill\"}>2</span>\n        </div>\n      </header>\n\n     
+ <main>\n        {stage === 1 ? (\n          <div className=
+\"stage-grid\">\n            <div className=\"panel space-y-
+4\">\n              <header className=\"panel-header\">\n   
+             <span className=\"badge\">Stage 1</span>\n     
+           <h2 className=\"panel-title\">Injection interval<
+/h2>\n                <p className=\"panel-sub\">\n         
+         Enter dates, then Keep / Extend / Shorten to set ne
+xt injection weeks.\n                </p>\n              </h
+eader>\n\n              <DateField\n                label=\"
+Date of last injection\"\n                value={lastInjecti
+on}\n                active={activeField === \"lastInjection
+\"}\n                digitBuffer={digitBuffer}\n            
+    onSelect={() => {\n                  setActiveField(\"la

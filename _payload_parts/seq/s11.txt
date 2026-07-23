@@ -1,0 +1,50 @@
+g\">Number pad</h2>\n                <p className=
+\"panel-sub\">\n                  Select a date fi
+eld, then type DDMM (year {YEAR_HINT}) or DDMMYYYY
+.\n                </p>\n              </header>\n
+              <NumberPad\n                onDigit=
+{onDigit}\n                onClear={onClear}\n    
+            onBackspace={() => setDigitBuffer((p) 
+=> p.slice(0, -1))}\n                onToday={onTo
+day}\n              />\n            </div>\n      
+    </div>\n        ) : (\n          <div classNam
+e=\"stage-grid stage-grid-wide\">\n            <di
+v className=\"panel space-y-4\">\n              <h
+eader className=\"panel-header\">\n               
+ <div className=\"flex items-center justify-betwee
+n gap-3\">\n                  <span className=\"ba
+dge\">Stage 2</span>\n                  <button\n 
+                   type=\"button\"\n              
+      className=\"link-btn\"\n                    
+onClick={() => {\n                      setStage(1
+);\n                      setActiveField(\"lastInj
+ection\");\n                      setDigitBuffer(\
+"\");\n                    }}\n                  >
+\n                    ← Back to Stage 1\n         
+         </button>\n                </div>\n      
+          <h2 className=\"panel-title\">Clinical o
+ptions & barcode</h2>\n                <p classNam
+e=\"panel-sub\">\n                  Next injection
+ interval:{\" \"}\n                  <strong class
+Name=\"text-slate-800\">{nextInjectionWeeks} weeks
+</strong>\n                </p>\n              </h
+eader>\n\n              <DateField\n              
+  label=\"Recent past / upcoming injection\"\n    
+            value={recentInjection}\n             
+   active={activeField === \"recentInjection\"}\n 
+               digitBuffer={digitBuffer}\n        
+        onSelect={() => {\n                  setAc
+tiveField(\"recentInjection\");\n                 
+ setDigitBuffer(\"\");\n                }}\n      
+        />\n\n              <section>\n           
+     <h3 className=\"section-label\">\n           
+       Eye <span className=\"req\">required · pick
+ one</span>\n                </h3>\n              
+  <div className=\"chip-row\">\n                  
+<Chip label=\"RE\" selected={eye === \"RE\"} onCli
+ck={() => setEye(\"RE\")} />\n                  <C
+hip label=\"LE\" selected={eye === \"LE\"} onClick
+={() => setEye(\"LE\")} />\n                </div>
+\n              </section>\n\n              <secti
+on>\n                <h3 className=\"section-label
+\">\n                  Diagnosis <span className=\

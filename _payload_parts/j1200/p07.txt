@@ -1,0 +1,20 @@
+m;\n  cursor: pointer;\n}\n\n.secondary-btn:hover {\n  backg
+round: #f8fafc;\n}\n\n.link-btn {\n  appearance: none;\n  bo
+rder: none;\n  background: none;\n  color: var(--primary-dar
+k);\n  font-weight: 600;\n  font-size: 0.85rem;\n  cursor: p
+ointer;\n  padding: 0;\n}\n\n.num-key {\n  appearance: none;
+\n  border: 1px solid var(--line);\n  background: #fff;\n  b
+order-radius: 12px;\n  min-height: 3.4rem;\n  font-size: 1.2
+5rem;\n  font-weight: 700;\n  color: var(--ink);\n  cursor: 
+pointer;\n  transition: background 0.12s, transform 0.08s;\n
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);\n}\n\n.num-k
+ey:hover {\n  background: #f8fafc;\n}\n\n.num-key:active {\n
+  transform: scale(0.97);\n  background: #e2e8f0;\n}\n\n.num
+-key-muted {\n  background: #f1f5f9;\n  color: var(--muted);
+\n  font-size: 1.05rem;\n}\n\n.num-key-today {\n  background
+: #0f172a;\n  color: #fff;\n  border-color: #0f172a;\n  font
+-size: 1rem;\n  letter-spacing: 0.02em;\n}\n\n.num-key-today
+:hover {\n  background: #1e293b;\n}\n\n.section-label {\n  m
+argin: 0 0 0.5rem;\n  font-size: 0.82rem;\n  font-weight: 70
+0;\n  color: var(--ink);\n}\n\n.req {\n  font-weight: 500;\n
+  color: #b45309;\n  font-size: 0.75rem;\n  margin-left: 0.3

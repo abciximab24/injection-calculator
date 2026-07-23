@@ -1,0 +1,1 @@
+l\" ? \"chip-optional\" : \"\",\n        disabled ? \"opacity-40 cursor-not-allowed\" : \"\",\n      ]\n        .filter(Boolean)\n        .join(\" \")}\n    >\n      {label}\n    </button>\n  );\n}\n"}]}

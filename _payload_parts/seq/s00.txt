@@ -1,0 +1,50 @@
+{"target":"production","name":"injection-calculato
+r","teamId":"team_hC9PnVUFWAJDr1j3L9QwNZkZ","proje
+ctSettings":{"framework":"nextjs"},"files":[{"file
+":"package.json","data":"{\n  \"name\": \"injectio
+n-calculator\",\n  \"version\": \"0.1.0\",\n  \"pr
+ivate\": true,\n  \"scripts\": {\n    \"dev\": \"n
+ext dev\",\n    \"build\": \"next build\",\n    \"
+start\": \"next start\",\n    \"lint\": \"eslint\"
+\n  },\n  \"dependencies\": {\n    \"@types/qrcode
+\": \"^1.5.6\",\n    \"next\": \"16.2.11\",\n    \
+"qrcode\": \"^1.5.4\",\n    \"react\": \"19.2.4\",
+\n    \"react-dom\": \"19.2.4\"\n  },\n  \"devDepe
+ndencies\": {\n    \"@tailwindcss/postcss\": \"^4\
+",\n    \"@types/node\": \"^20\",\n    \"@types/re
+act\": \"^19\",\n    \"@types/react-dom\": \"^19\"
+,\n    \"eslint\": \"^9\",\n    \"eslint-config-ne
+xt\": \"16.2.11\",\n    \"tailwindcss\": \"^4\",\n
+    \"typescript\": \"^5\"\n  }\n}\n"},{"file":"ts
+config.json","data":"{\n  \"compilerOptions\": {\n
+    \"target\": \"ES2017\",\n    \"lib\": [\"dom\"
+, \"dom.iterable\", \"esnext\"],\n    \"allowJs\":
+ true,\n    \"skipLibCheck\": true,\n    \"strict\
+": true,\n    \"noEmit\": true,\n    \"esModuleInt
+erop\": true,\n    \"module\": \"esnext\",\n    \"
+moduleResolution\": \"bundler\",\n    \"resolveJso
+nModule\": true,\n    \"isolatedModules\": true,\n
+    \"jsx\": \"react-jsx\",\n    \"incremental\": 
+true,\n    \"plugins\": [\n      {\n        \"name
+\": \"next\"\n      }\n    ],\n    \"paths\": {\n 
+     \"@/*\": [\"./src/*\"]\n    }\n  },\n  \"incl
+ude\": [\n    \"next-env.d.ts\",\n    \"**/*.ts\",
+\n    \"**/*.tsx\",\n    \".next/types/**/*.ts\",\
+n    \".next/dev/types/**/*.ts\",\n    \"**/*.mts\
+"\n  ],\n  \"exclude\": [\"node_modules\"]\n}\n"},
+{"file":"next.config.ts","data":"import type { Nex
+tConfig } from \"next\";\nconst nextConfig: NextCo
+nfig = {};\nexport default nextConfig;\n"},{"file"
+:"postcss.config.mjs","data":"const config = { plu
+gins: { \"@tailwindcss/postcss\": {} } };\nexport 
+default config;\n"},{"file":"src/app/layout.tsx","
+data":"import type { Metadata } from \"next\";\nim
+port \"./globals.css\";\nexport const metadata: Me
+tadata = {\n  title: \"Injection Calculator\",\n  
+description: \"Clinical injection interval calcula
+tor and 2D barcode generator\",\n};\nexport defaul
+t function RootLayout({ children }: { children: Re
+act.ReactNode }) {\n  return (\n    <html lang=\"e
+n\">\n      <body className=\"antialiased\">{child
+ren}</body>\n    </html>\n  );\n}\n"},{"file":"src
+/app/globals.css","data":"@import \"tailwindcss\";

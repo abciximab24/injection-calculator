@@ -1,0 +1,141 @@
+"use client";
+import { useCallback, useEffect, useState } from "react";
+import QRCode from "qrcode";
+type Eye = "RE" | "LE";
+type Dx = "wAMD" | "PCV";
+type Drug = "Eylea 8mg" | "Eylea 2mg" | "Vabysmo" | "Lucentis";
+type Field = "last" | "oct" | "recent";
+type Adj = "keep" | "extend" | "shorten" | null;
+function toISO(d: Date) {
+return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+}
+function parseISO(iso: string) {
+if (!iso || !/^\d{4}-\d{2}-\d{2}$/.test(iso)) return null;
+const [y, m, d] = iso.split("-").map(Number);
+const dt = new Date(y, m - 1, d);
+return dt.getFullYear() === y && dt.getMonth() === m - 1 && dt.getDate() === d ? dt : null;
+}
+function showDate(iso: string) {
+const d = parseISO(iso);
+if (!d) return "__ / __ / ____";
+return `${String(d.getDate()).padStart(2, "0")} / ${String(d.getMonth() + 1).padStart(2, "0")} / ${d.getFullYear()}`;
+}
+function showBuf(b: string, y = 2026) {
+const dig = b.replace(/\D/g, "").slice(0, 8);
+return `${dig.slice(0, 2).padEnd(2, "_")} / ${dig.slice(2, 4).padEnd(2, "_")} / ${dig.length <= 4 ? y : dig.slice(4, 8).padEnd(4, "_")}`;
+}
+function bufISO(b: string, y = 2026) {
+const dig = b.replace(/\D/g, "");
+if (dig.length !== 4 && dig.length !== 8) return null;
+const dd = +dig.slice(0, 2), mm = +dig.slice(2, 4), yy = dig.length === 8 ? +dig.slice(4, 8) : y;
+if (mm < 1 || mm > 12 || dd < 1 || dd > 31) return null;
+const dt = new Date(yy, mm - 1, dd);
+return dt.getFullYear() === yy && dt.getMonth() === mm - 1 && dt.getDate() === dd ? toISO(dt) : null;
+}
+function weeks(a: string, b: string) {
+const s = parseISO(a), e = parseISO(b);
+return s && e ? Math.round((e.getTime() - s.getTime()) / 604800000) : null;
+}
+function weeksFromToday(iso: string) {
+const d = parseISO(iso);
+if (!d) return null;
+const t = new Date();
+const today = new Date(t.getFullYear(), t.getMonth(), t.getDate());
+return Math.round((d.getTime() - today.getTime()) / 604800000);
+}
+export default function Home() {
+const [stage, setStage] = useState<1 | 2>(1);
+const [last, setLast] = useState("");
+const [oct, setOct] = useState("");
+const [nWeeks, setNWeeks] = useState<number | null>(null);
+const [nextW, setNextW] = useState<number | null>(null);
+const [adj, setAdj] = useState<Adj>(null);
+const [recent, setRecent] = useState("");
+const [eye, setEye] = useState<Eye | null>(null);
+const [dx, setDx] = useState<Dx | null>(null);
+const [only, setOnly] = useState<"RE only eye" | "LE only eye" | null>(null);
+const [drug, setDrug] = useState<Drug | null>(null);
+const [fu, setFu] = useState(false);
+const [field, setField] = useState<Field>("last");
+const [buf, setBuf] = useState("");
+const [text, setText] = useState<string | null>(null);
+const [q, setQ] = useState<number | null>(null);
+const [qr, setQr] = useState<string | null>(null);
+const [err, setErr] = useState<string | null>(null);
+const recompute = useCallback((L: string, O: string, A: Adj) => {
+const w = L && O ? weeks(L, O) : null;
+setNWeeks(w);
+if (w === null) { setNextW(null); return; }
+if (A === "keep") setNextW(w);
+else if (A === "extend") setNextW(w + 2);
+else if (A === "shorten") setNextW(w - 2);
+else setNextW(null);
+}, []);
+const commit = useCallback((f: Field, b: string) => {
+const iso = bufISO(b);
+if (!iso) return;
+if (f === "last") { setLast(iso); recompute(iso, oct, adj); }
+else if (f === "oct") { setOct(iso); recompute(last, iso, adj); }
+else setRecent(iso);
+setBuf("");
+}, [adj, last, oct, recompute]);
+const digit = (d: string) => {
+setBuf((p) => {
+const n = (p + d).replace(/\D/g, "").slice(0, 8);
+if (n.length === 4 || n.length === 8) queueMicrotask(() => commit(field, n));
+return n;
+});
+};
+const clear = () => {
+setBuf("");
+if (field === "last") { setLast(""); recompute("", oct, adj); }
+else if (field === "oct") { setOct(""); recompute(last, "", adj); }
+else setRecent("");
+};
+const today = () => {
+const iso = toISO(new Date());
+setBuf("");
+if (field === "last") { setLast(iso); recompute(iso, oct, adj); }
+else if (field === "oct") { setOct(iso); recompute(last, iso, adj); }
+else setRecent(iso);
+};
+const apply = (a: Exclude<Adj, null>) => {
+if (nWeeks === null) return;
+setAdj(a);
+setNextW(a === "keep" ? nWeeks : a === "extend" ? nWeeks + 2 : nWeeks - 2);
+};
+async function enter() {
+setErr(null);
+if (!eye || !dx || !drug || !recent || nextW === null) {
+setErr("Complete required fields.");
+return;
+}
+const delta = weeksFromToday(recent);
+if (delta === null) { setErr("Invalid recent date."); return; }
+const qW = nextW + delta;
+const lines = [
+`<<< List: ${eye} ${drug}; ${eye} ${dx}; Q${qW}wk  MP ${eye}`,
+"Amsler grid, AREDS2 info",
+];
+if (only === "RE only eye") lines.push("Protect RE");
+if (only === "LE only eye") lines.push("Protect LE");
+lines.push(fu ? "FU VR Clinic 1/52 before injection VA IOP MPBE" : "FU Same Day VR Clinic VA IOP MPBE");
+lines.push("<<< OCT-m BE n/v MPBE");
+const t = lines.join("\n");
+setText(t);
+setQ(qW);
+setQr(await QRCode.toDataURL(t, { errorCorrectionLevel: "M", margin: 2, width: 280, color: { dark: "#0f172a", light: "#fff" } }));
+}
+useEffect(() => { setText(null); setQr(null); setQ(null); }, [eye, dx, drug, recent, only, fu, nextW]);
+const DateBtn = ({ label, value, f }: { label: string; value: string; f: Field }) => (
+<button type="button" onClick={() => { setField(f); setBuf(""); }} className={["date-field", field === f ? "date-field-active" : ""].filter(Boolean).join(" ")}>
+<span className="date-field-label">{label}</span>
+<span className="date-field-value font-mono tracking-wide">{field === f && buf ? showBuf(buf) : value ? showDate(value) : showBuf("")}</span>
+</button>
+);
+const Chip = ({ label, on, onClick, opt }: { label: string; on: boolean; onClick: () => void; opt?: boolean }) => (
+<button type="button" onClick={onClick} className={["chip", on ? "chip-selected" : "", opt ? "chip-optional" : ""].filter(Boolean).join(" ")}>{label}</button>
+);
+const Pad = (
+<div className="grid grid-cols-3 gap-2">
+{["1","2","3","4","5","6","7","8","9"].map((k)

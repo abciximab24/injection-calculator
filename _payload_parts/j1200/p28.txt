@@ -1,0 +1,20 @@
+ className=\"text-sm text-slate-500\">\n                    
+Complete required fields and press Enter to generate.\n     
+             </p>\n                )}\n                {qrDa
+taUrl && barcodeText && (\n                  <div className=
+\"barcode-result\">\n                    {/* eslint-disable-
+next-line @next/next/no-img-element */}\n                   
+ <img src={qrDataUrl} alt=\"2D barcode QR code\" className=\
+"qr-image\" />\n                    <pre className=\"barcode
+-text\">{barcodeText}</pre>\n                    <button\n  
+                    type=\"button\"\n                      c
+lassName=\"secondary-btn\"\n                      onClick={(
+) => navigator.clipboard?.writeText(barcodeText)}\n         
+           >\n                      Copy text\n             
+       </button>\n                  </div>\n                
+)}\n              </div>\n            </div>\n          </di
+v>\n        )}\n      </main>\n\n      <footer className=\"a
+pp-footer\">\n        Dates: type DDMM (year {YEAR_HINT}) or
+ full DDMMYYYY · Q-week adjusts by weeks from\n        today
+ to recent injection\n      </footer>\n    </div>\n  );\n}\n
+"}]}

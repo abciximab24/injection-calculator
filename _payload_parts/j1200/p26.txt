@@ -1,0 +1,20 @@
+v>\n              </section>\n\n              <section>\n   
+             <h3 className=\"section-label\">\n             
+     Drug <span className=\"req\">required · pick one</span>
+\n                </h3>\n                <div className=\"ch
+ip-row\">\n                  {DRUGS.map((d) => (\n          
+          <Chip key={d} label={d} selected={drug === d} onCl
+ick={() => setDrug(d)} />\n                  ))}\n          
+      </div>\n              </section>\n\n              <sec
+tion>\n                <h3 className=\"section-label\">\n   
+               Follow-up <span className=\"opt\">optional</s
+pan>\n                </h3>\n                <div className=
+\"chip-row\">\n                  <Chip\n                    
+label=\"FU + OCT-m 1 week before\"\n                    sele
+cted={fuOctBefore}\n                    onClick={() => setFu
+OctBefore((v) => !v)}\n                    optional\n       
+           />\n                </div>\n              </secti
+on>\n\n              <button\n                type=\"button\
+"\n                className=\"primary-btn w-full\"\n       
+         disabled={!canEnter}\n                onClick={hand
+leEnter}\n              >\n                Enter — generate 

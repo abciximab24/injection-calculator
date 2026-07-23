@@ -1,0 +1,20 @@
+\\d{2}$/.test(iso)) return null;\n  const [y, m, d] = iso.sp
+lit(\"-\").map(Number);\n  const date = new Date(y, m - 1, d
+);\n  if (date.getFullYear() !== y || date.getMonth() !== m 
+- 1 || date.getDate() !== d) return null;\n  return date;\n}
+\nfunction formatDisplayDate(iso: string): string {\n  const
+ d = parseISODate(iso);\n  if (!d) return \"__ / __ / ____\"
+;\n  return `${String(d.getDate()).padStart(2, \"0\")} / ${S
+tring(d.getMonth() + 1).padStart(2, \"0\")} / ${d.getFullYea
+r()}`;\n}\nfunction formatBufferDisplay(buffer: string, year
+Hint = 2026): string {\n  const digits = buffer.replace(/\\D
+/g, \"\").slice(0, 8);\n  const dd = digits.slice(0, 2).padE
+nd(2, \"_\");\n  const mm = digits.slice(2, 4).padEnd(2, \"_
+\");\n  const yyyy = digits.length <= 4 ? String(yearHint) :
+ digits.slice(4, 8).padEnd(4, \"_\");\n  return `${dd} / ${m
+m} / ${yyyy}`;\n}\nfunction bufferToISO(buffer: string, year
+Hint = 2026): string | null {\n  const digits = buffer.repla
+ce(/\\D/g, \"\");\n  if (digits.length !== 4 && digits.lengt
+h !== 8) return null;\n  const dd = parseInt(digits.slice(0,
+ 2), 10);\n  const mm = parseInt(digits.slice(2, 4), 10);\n 
+ const yyyy = digits.length === 8 ? parseInt(digits.slice(4,

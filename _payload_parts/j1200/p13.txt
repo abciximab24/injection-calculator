@@ -1,0 +1,20 @@
+/button>\n  );\n}\n\nfunction DateField({\n  label,\n  value
+,\n  active,\n  digitBuffer,\n  onSelect,\n}: {\n  label: st
+ring;\n  value: string;\n  active: boolean;\n  digitBuffer: 
+string;\n  onSelect: () => void;\n}) {\n  const display =\n 
+   active && digitBuffer.length > 0\n      ? formatBufferDis
+play(digitBuffer)\n      : value\n        ? formatDisplayDat
+e(value)\n        : formatBufferDisplay(\"\");\n  return (\n
+    <button\n      type=\"button\"\n      onClick={onSelect}
+\n      className={[\"date-field\", active ? \"date-field-ac
+tive\" : \"\"]\n        .filter(Boolean)\n        .join(\" \
+")}\n    >\n      <span className=\"date-field-label\">{labe
+l}</span>\n      <span className=\"date-field-value font-mon
+o tracking-wide\">{display}</span>\n    </button>\n  );\n}\n
+\nfunction NumberPad({\n  onDigit,\n  onClear,\n  onBackspac
+e,\n  onToday,\n}: {\n  onDigit: (d: string) => void;\n  onC
+lear: () => void;\n  onBackspace: () => void;\n  onToday: ()
+ => void;\n}) {\n  return (\n    <div className=\"grid grid-
+cols-3 gap-2\">\n      {[\"1\", \"2\", \"3\", \"4\", \"5\", 
+\"6\", \"7\", \"8\", \"9\"].map((k) => (\n        <button ke
+y={k} type=\"button\" onClick={() => onDigit(k)} className=\

@@ -1,0 +1,50 @@
+n className=\"stat-label\">Next injection</span>\n
+                  <span className=\"stat-value\">\
+n                    {nextInjectionWeeks !== null 
+? nextInjectionWeeks : \"—\"}\n                   
+ <span className=\"stat-unit\"> wk</span>\n       
+           </span>\n                  <span classN
+ame=\"stat-hint\">\n                    {adjustmen
+t === \"keep\" && \"Keep interval\"}\n            
+        {adjustment === \"extend\" && \"Extended +
+2\"}\n                    {adjustment === \"shorte
+n\" && \"Shortened −2\"}\n                    {!ad
+justment && \"Choose Keep / Extend / Shorten\"}\n 
+                 </span>\n                </div>\n
+              </div>\n\n              <div classNa
+me=\"action-row\">\n                <button\n     
+             type=\"button\"\n                  cl
+assName={[\"action-btn action-keep\", adjustment =
+== \"keep\" ? \"action-btn-active\" : \"\"].filter
+(Boolean).join(\" \")}\n                  disabled
+={noOfWeeks === null}\n                  onClick={
+() => applyAdjustment(\"keep\")}\n                
+>\n                  Keep\n                </butto
+n>\n                <button\n                  typ
+e=\"button\"\n                  className={[\"acti
+on-btn action-extend\", adjustment === \"extend\" 
+? \"action-btn-active\" : \"\"].filter(Boolean).jo
+in(\" \")}\n                  disabled={noOfWeeks 
+=== null}\n                  onClick={() => applyA
+djustment(\"extend\")}\n                >\n       
+           Extend +2\n                </button>\n 
+               <button\n                  type=\"b
+utton\"\n                  className={[\"action-bt
+n action-shorten\", adjustment === \"shorten\" ? \
+"action-btn-active\" : \"\"].filter(Boolean).join(
+\" \")}\n                  disabled={noOfWeeks ===
+ null}\n                  onClick={() => applyAdju
+stment(\"shorten\")}\n                >\n         
+         Shorten −2\n                </button>\n  
+            </div>\n\n              <button\n     
+           type=\"button\"\n                classN
+ame=\"primary-btn w-full\"\n                disabl
+ed={!canContinue}\n                onClick={() => 
+{\n                  setStage(2);\n               
+   setActiveField(\"recentInjection\");\n         
+         setDigitBuffer(\"\");\n                }}
+\n              >\n                Continue to Sta
+ge 2 →\n              </button>\n            </div
+>\n\n            <div className=\"panel\">\n      
+        <header className=\"panel-header mb-4\">\n
+                <h2 className=\"panel-title text-l

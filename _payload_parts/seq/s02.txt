@@ -1,0 +1,50 @@
+in: 0.35rem 0 0;\n  color: var(--muted);\n  font-s
+ize: 0.9rem;\n  line-height: 1.45;\n}\n\n.badge {\
+n  display: inline-flex;\n  align-items: center;\n
+  padding: 0.2rem 0.55rem;\n  border-radius: 999px
+;\n  font-size: 0.7rem;\n  font-weight: 700;\n  le
+tter-spacing: 0.04em;\n  text-transform: uppercase
+;\n  background: #e0f2fe;\n  color: #0369a1;\n}\n\
+n.date-field {\n  width: 100%;\n  text-align: left
+;\n  border: 2px solid var(--line);\n  background:
+ #f8fafc;\n  border-radius: 12px;\n  padding: 0.85
+rem 1rem;\n  cursor: pointer;\n  transition: borde
+r-color 0.15s, box-shadow 0.15s, background 0.15s;
+\n}\n\n.date-field:hover {\n  border-color: #cbd5e
+1;\n}\n\n.date-field-active {\n  border-color: var
+(--primary);\n  background: #f0f9ff;\n  box-shadow
+: 0 0 0 3px rgba(14, 165, 233, 0.15);\n}\n\n.date-
+field-label {\n  display: block;\n  font-size: 0.7
+8rem;\n  font-weight: 600;\n  color: var(--muted);
+\n  margin-bottom: 0.35rem;\n}\n\n.date-field-valu
+e {\n  display: block;\n  font-size: 1.2rem;\n  fo
+nt-weight: 600;\n  color: var(--ink);\n}\n\n.stat-
+row {\n  display: grid;\n  grid-template-columns: 
+1fr 1fr;\n  gap: 0.75rem;\n}\n\n.stat-card {\n  bo
+rder: 1px solid var(--line);\n  border-radius: 12p
+x;\n  padding: 0.85rem 0.9rem;\n  background: #f8f
+afc;\n}\n\n.stat-card-accent {\n  background: line
+ar-gradient(160deg, #f0f9ff 0%, #e0f2fe 100%);\n  
+border-color: #bae6fd;\n}\n\n.stat-label {\n  disp
+lay: block;\n  font-size: 0.72rem;\n  font-weight:
+ 700;\n  text-transform: uppercase;\n  letter-spac
+ing: 0.04em;\n  color: var(--muted);\n}\n\n.stat-v
+alue {\n  display: block;\n  margin-top: 0.25rem;\
+n  font-size: 1.75rem;\n  font-weight: 800;\n  let
+ter-spacing: -0.03em;\n  line-height: 1.1;\n}\n\n.
+stat-unit {\n  font-size: 0.95rem;\n  font-weight:
+ 600;\n  color: var(--muted);\n}\n\n.stat-hint {\n
+  display: block;\n  margin-top: 0.3rem;\n  font-s
+ize: 0.75rem;\n  color: var(--muted);\n}\n\n.actio
+n-row {\n  display: grid;\n  grid-template-columns
+: repeat(3, 1fr);\n  gap: 0.55rem;\n}\n\n.action-b
+tn {\n  border: 2px solid transparent;\n  border-r
+adius: 12px;\n  padding: 0.85rem 0.5rem;\n  font-w
+eight: 700;\n  font-size: 0.92rem;\n  cursor: poin
+ter;\n  color: #fff;\n  transition: transform 0.1s
+, filter 0.15s, box-shadow 0.15s;\n}\n\n.action-bt
+n:disabled {\n  opacity: 0.4;\n  cursor: not-allow
+ed;\n}\n\n.action-btn:not(:disabled):active {\n  t
+ransform: scale(0.98);\n}\n\n.action-keep {\n  bac
+kground: var(--keep);\n}\n.action-extend {\n  back
+ground: var(--extend);\n}\n.action-shorten {\n  ba

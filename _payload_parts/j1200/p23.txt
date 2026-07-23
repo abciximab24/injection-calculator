@@ -1,0 +1,20 @@
+eld, then type DDMM (year {YEAR_HINT}) or DDMMYYYY.\n       
+         </p>\n              </header>\n              <Numbe
+rPad\n                onDigit={onDigit}\n                onC
+lear={onClear}\n                onBackspace={() => setDigitB
+uffer((p) => p.slice(0, -1))}\n                onToday={onTo
+day}\n              />\n            </div>\n          </div>
+\n        ) : (\n          <div className=\"stage-grid stage
+-grid-wide\">\n            <div className=\"panel space-y-4\
+">\n              <header className=\"panel-header\">\n     
+           <div className=\"flex items-center justify-betwee
+n gap-3\">\n                  <span className=\"badge\">Stag
+e 2</span>\n                  <button\n                    t
+ype=\"button\"\n                    className=\"link-btn\"\n
+                    onClick={() => {\n                      
+setStage(1);\n                      setActiveField(\"lastInj
+ection\");\n                      setDigitBuffer(\"\");\n   
+                 }}\n                  >\n                  
+  ← Back to Stage 1\n                  </button>\n          
+      </div>\n                <h2 className=\"panel-title\">
+Clinical options & barcode</h2>\n                <p classNam

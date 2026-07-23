@@ -1,0 +1,50 @@
+formatBufferDisplay(buffer: string, yearHint = 202
+6): string {\n  const digits = buffer.replace(/\\D
+/g, \"\").slice(0, 8);\n  const dd = digits.slice(
+0, 2).padEnd(2, \"_\");\n  const mm = digits.slice
+(2, 4).padEnd(2, \"_\");\n  const yyyy = digits.le
+ngth <= 4 ? String(yearHint) : digits.slice(4, 8).
+padEnd(4, \"_\");\n  return `${dd} / ${mm} / ${yyy
+y}`;\n}\nfunction bufferToISO(buffer: string, year
+Hint = 2026): string | null {\n  const digits = bu
+ffer.replace(/\\D/g, \"\");\n  if (digits.length !
+== 4 && digits.length !== 8) return null;\n  const
+ dd = parseInt(digits.slice(0, 2), 10);\n  const m
+m = parseInt(digits.slice(2, 4), 10);\n  const yyy
+y = digits.length === 8 ? parseInt(digits.slice(4,
+ 8), 10) : yearHint;\n  if (mm < 1 || mm > 12 || d
+d < 1 || dd > 31) return null;\n  const date = new
+ Date(yyyy, mm - 1, dd);\n  if (date.getFullYear()
+ !== yyyy || date.getMonth() !== mm - 1 || date.ge
+tDate() !== dd) return null;\n  return toISODate(d
+ate);\n}\nfunction weeksBetween(startISO: string, 
+endISO: string): number | null {\n  const start = 
+parseISODate(startISO);\n  const end = parseISODat
+e(endISO);\n  if (!start || !end) return null;\n  
+return Math.round((end.getTime() - start.getTime()
+) / (7 * 24 * 60 * 60 * 1000));\n}\nfunction weeks
+FromToday(iso: string): number | null {\n  const d
+ = parseISODate(iso);\n  if (!d) return null;\n  c
+onst t = new Date();\n  const today = new Date(t.g
+etFullYear(), t.getMonth(), t.getDate());\n  retur
+n Math.round((d.getTime() - today.getTime()) / (7 
+* 24 * 60 * 60 * 1000));\n}\nfunction todayISO(): 
+string {\n  return toISODate(new Date());\n}\n\nfu
+nction buildBarcodeText(\n  nextInjectionWeeks: nu
+mber,\n  eye: Eye,\n  diagnosis: Diagnosis,\n  dru
+g: Drug,\n  recentInjection: string,\n  onlyEye: O
+nlyEye,\n  fuOctBefore: boolean\n): { text: string
+; qWeeks: number } | null {\n  const delta = weeks
+FromToday(recentInjection);\n  if (delta === null)
+ return null;\n  const qWeeks = nextInjectionWeeks
+ + delta;\n  const lines = [\n    `<<< List: ${eye
+} ${drug}; ${eye} ${diagnosis}; Q${qWeeks}wk  MP $
+{eye}`,\n    \"Amsler grid, AREDS2 info\",\n  ];\n
+  if (onlyEye === \"RE only eye\") lines.push(\"Pr
+otect RE\");\n  else if (onlyEye === \"LE only eye
+\") lines.push(\"Protect LE\");\n  lines.push(\n  
+  fuOctBefore\n      ? \"FU VR Clinic 1/52 before 
+injection VA IOP MPBE\"\n      : \"FU Same Day VR 
+Clinic VA IOP MPBE\"\n  );\n  lines.push(\"<<< OCT
+-m BE n/v MPBE\");\n  return { text: lines.join(\"
+\\n\"), qWeeks };\n}\n\nconst YEAR_HINT = 2026;\nc

@@ -1,0 +1,50 @@
+onst DRUGS: Drug[] = [\"Eylea 8mg\", \"Eylea 2mg\"
+, \"Vabysmo\", \"Lucentis\"];\n\n/* ── UI atoms ──
+────────────────────────────────────────── */\nfun
+ction Chip({\n  label,\n  selected,\n  onClick,\n 
+ optional,\n}: {\n  label: string;\n  selected: bo
+olean;\n  onClick: () => void;\n  optional?: boole
+an;\n}) {\n  return (\n    <button\n      type=\"b
+utton\"\n      onClick={onClick}\n      className=
+{[\n        \"chip\",\n        selected ? \"chip-s
+elected\" : \"\",\n        optional ? \"chip-optio
+nal\" : \"\",\n      ]\n        .filter(Boolean)\n
+        .join(\" \")}\n    >\n      {label}\n    <
+/button>\n  );\n}\n\nfunction DateField({\n  label
+,\n  value,\n  active,\n  digitBuffer,\n  onSelect
+,\n}: {\n  label: string;\n  value: string;\n  act
+ive: boolean;\n  digitBuffer: string;\n  onSelect:
+ () => void;\n}) {\n  const display =\n    active 
+&& digitBuffer.length > 0\n      ? formatBufferDis
+play(digitBuffer)\n      : value\n        ? format
+DisplayDate(value)\n        : formatBufferDisplay(
+\"\");\n  return (\n    <button\n      type=\"butt
+on\"\n      onClick={onSelect}\n      className={[
+\"date-field\", active ? \"date-field-active\" : \
+"\"]\n        .filter(Boolean)\n        .join(\" \
+")}\n    >\n      <span className=\"date-field-lab
+el\">{label}</span>\n      <span className=\"date-
+field-value font-mono tracking-wide\">{display}</s
+pan>\n    </button>\n  );\n}\n\nfunction NumberPad
+({\n  onDigit,\n  onClear,\n  onBackspace,\n  onTo
+day,\n}: {\n  onDigit: (d: string) => void;\n  onC
+lear: () => void;\n  onBackspace: () => void;\n  o
+nToday: () => void;\n}) {\n  return (\n    <div cl
+assName=\"grid grid-cols-3 gap-2\">\n      {[\"1\"
+, \"2\", \"3\", \"4\", \"5\", \"6\", \"7\", \"8\",
+ \"9\"].map((k) => (\n        <button key={k} type
+=\"button\" onClick={() => onDigit(k)} className=\
+"num-key\">\n          {k}\n        </button>\n   
+   ))}\n      <button type=\"button\" onClick={onC
+lear} className=\"num-key num-key-muted\">\n      
+  C\n      </button>\n      <button type=\"button\
+" onClick={() => onDigit(\"0\")} className=\"num-k
+ey\">\n        0\n      </button>\n      <button t
+ype=\"button\" onClick={onBackspace} className=\"n
+um-key num-key-muted\" aria-label=\"Backspace\">\n
+        ⌫\n      </button>\n      <button type=\"b
+utton\" onClick={onToday} className=\"col-span-3 n
+um-key num-key-today\">\n        Today\n      </bu
+tton>\n    </div>\n  );\n}\n\n/* ── main app ─────
+─────────────────────────────────────── */\nexport
+ default function Home() {\n  const [stage, setSta

@@ -1,0 +1,40 @@
+ 0.15s, transform 0.1s;\n}\n\n.primary-btn:hover:not(:disabled) {\n  filter: brightness(1.05);\n}\n\
+n.primary-btn:disabled {\n  opacity: 0.45;\n  cursor: not-allowed;\n  box-shadow: none;\n}\n\n.secon
+dary-btn {\n  appearance: none;\n  border: 1px solid var(--line);\n  border-radius: 10px;\n  backgro
+und: #fff;\n  color: var(--ink);\n  font-weight: 600;\n  font-size: 0.9rem;\n  padding: 0.6rem 0.9re
+m;\n  cursor: pointer;\n}\n\n.secondary-btn:hover {\n  background: #f8fafc;\n}\n\n.link-btn {\n  app
+earance: none;\n  border: none;\n  background: none;\n  color: var(--primary-dark);\n  font-weight: 
+600;\n  font-size: 0.85rem;\n  cursor: pointer;\n  padding: 0;\n}\n\n.num-key {\n  appearance: none;
+\n  border: 1px solid var(--line);\n  background: #fff;\n  border-radius: 12px;\n  min-height: 3.4re
+m;\n  font-size: 1.25rem;\n  font-weight: 700;\n  color: var(--ink);\n  cursor: pointer;\n  transiti
+on: background 0.12s, transform 0.08s;\n  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);\n}\n\n.num-k
+ey:hover {\n  background: #f8fafc;\n}\n\n.num-key:active {\n  transform: scale(0.97);\n  background:
+ #e2e8f0;\n}\n\n.num-key-muted {\n  background: #f1f5f9;\n  color: var(--muted);\n  font-size: 1.05r
+em;\n}\n\n.num-key-today {\n  background: #0f172a;\n  color: #fff;\n  border-color: #0f172a;\n  font
+-size: 1rem;\n  letter-spacing: 0.02em;\n}\n\n.num-key-today:hover {\n  background: #1e293b;\n}\n\n.
+section-label {\n  margin: 0 0 0.5rem;\n  font-size: 0.82rem;\n  font-weight: 700;\n  color: var(--i
+nk);\n}\n\n.req {\n  font-weight: 500;\n  color: #b45309;\n  font-size: 0.75rem;\n  margin-left: 0.3
+5rem;\n}\n\n.opt {\n  font-weight: 500;\n  color: var(--muted);\n  font-size: 0.75rem;\n  margin-lef
+t: 0.35rem;\n}\n\n.chip-row {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.5rem;\n}\n\n.chip {\n 
+ appearance: none;\n  border: 2px solid var(--line);\n  background: #fff;\n  border-radius: 999px;\n
+  padding: 0.55rem 0.95rem;\n  font-weight: 600;\n  font-size: 0.9rem;\n  color: var(--ink);\n  curs
+or: pointer;\n  transition: all 0.12s;\n}\n\n.chip:hover:not(:disabled) {\n  border-color: #94a3b8;\
+n}\n\n.chip-selected {\n  background: #0f172a;\n  border-color: #0f172a;\n  color: #fff;\n}\n\n.chip
+-optional.chip-selected {\n  background: #0ea5e9;\n  border-color: #0284c7;\n}\n\n.barcode-panel {\n
+  min-height: 220px;\n}\n\n.barcode-result {\n  display: flex;\n  flex-direction: column;\n  align-i
+tems: center;\n  gap: 0.85rem;\n}\n\n.qr-image {\n  width: 220px;\n  height: 220px;\n  border-radius
+: 12px;\n  border: 1px solid var(--line);\n  background: #fff;\n}\n\n.barcode-text {\n  width: 100%;
+\n  margin: 0;\n  padding: 0.85rem 1rem;\n  background: #0f172a;\n  color: #e2e8f0;\n  border-radius
+: 10px;\n  font-size: 0.78rem;\n  line-height: 1.5;\n  white-space: pre-wrap;\n  word-break: break-w
+ord;\n  font-family: var(--font-geist-mono), ui-monospace, monospace;\n}\n\n.error-text {\n  margin:
+ 0;\n  color: var(--danger);\n  font-size: 0.88rem;\n  font-weight: 600;\n}\n\n.app-footer {\n  marg
+in-top: 1.25rem;\n  text-align: center;\n  font-size: 0.78rem;\n  color: var(--muted);\n  line-heigh
+t: 1.4;\n}\n"},{"file":"src/app/page.tsx","data":"\"use client\";\n\nimport { useCallback, useEffect
+, useMemo, useState } from \"react\";\nimport QRCode from \"qrcode\";\n\n/* ── types ───────────────
+──────────────────────────────── */\ntype Eye = \"RE\" | \"LE\";\ntype Diagnosis = \"wAMD\" | \"PCV\
+";\ntype Drug = \"Eylea 8mg\" | \"Eylea 2mg\" | \"Vabysmo\" | \"Lucentis\";\ntype OnlyEye = \"RE onl
+y eye\" | \"LE only eye\" | null;\ntype DateField = \"lastInjection\" | \"octM\" | \"recentInjection
+\";\ntype Stage = 1 | 2;\ntype Adjustment = \"keep\" | \"extend\" | \"shorten\" | null;\n\n/* ── dat
+e helpers ──────────────────────────────────────── */\nfunction toISODate(d: Date): string {\n  retu
+rn `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, \"0\")}-${String(d.getDate()).padStart
+(2, \"0\")}`;\n}\nfunction parseISODate(iso: string): Date | null {\n  if (!iso || !/^\\d{4}-\\d{2}-

@@ -1,0 +1,20 @@
+    (field: DateField, buffer: string) => {\n      const iso
+ = bufferToISO(buffer, YEAR_HINT);\n      if (!iso) return;\
+n      if (field === \"lastInjection\") {\n        setLastIn
+jection(iso);\n        recompute(iso, octM, adjustment);\n  
+    } else if (field === \"octM\") {\n        setOctM(iso);\
+n        recompute(lastInjection, iso, adjustment);\n      }
+ else {\n        setRecentInjection(iso);\n      }\n      se
+tDigitBuffer(\"\");\n    },\n    [adjustment, lastInjection,
+ octM, recompute]\n  );\n\n  const onDigit = useCallback(\n 
+   (d: string) => {\n      setDigitBuffer((prev) => {\n     
+   const next = (prev + d).replace(/\\D/g, \"\").slice(0, 8)
+;\n        if (next.length === 4 || next.length === 8) {\n  
+        queueMicrotask(() => commitBuffer(activeField, next)
+);\n        }\n        return next;\n      });\n    },\n    
+[activeField, commitBuffer]\n  );\n\n  const onClear = useCa
+llback(() => {\n    setDigitBuffer(\"\");\n    if (activeFie
+ld === \"lastInjection\") {\n      setLastInjection(\"\");\n
+      recompute(\"\", octM, adjustment);\n    } else if (act
+iveField === \"octM\") {\n      setOctM(\"\");\n      recomp
+ute(lastInjection, \"\", adjustment);\n    } else {\n      s

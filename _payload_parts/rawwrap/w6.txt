@@ -1,0 +1,40 @@
+stInjection\");\n                  setDigitBuffer(\"\");\n                }}\n              />\n    
+          <DateField\n                label=\"Date of OCT-m\"\n                value={octM}\n       
+         active={activeField === \"octM\"}\n                digitBuffer={digitBuffer}\n             
+   onSelect={() => {\n                  setActiveField(\"octM\");\n                  setDigitBuffer(
+\"\");\n                }}\n              />\n\n              <div className=\"stat-row\">\n        
+        <div className=\"stat-card\">\n                  <span className=\"stat-label\">No. of weeks
+</span>\n                  <span className=\"stat-value\">\n                    {noOfWeeks !== null 
+? noOfWeeks : \"—\"}\n                    <span className=\"stat-unit\"> wk</span>\n                
+  </span>\n                  <span className=\"stat-hint\">OCT-m − last injection</span>\n          
+      </div>\n                <div className=\"stat-card stat-card-accent\">\n                  <spa
+n className=\"stat-label\">Next injection</span>\n                  <span className=\"stat-value\">\
+n                    {nextInjectionWeeks !== null ? nextInjectionWeeks : \"—\"}\n                   
+ <span className=\"stat-unit\"> wk</span>\n                  </span>\n                  <span classN
+ame=\"stat-hint\">\n                    {adjustment === \"keep\" && \"Keep interval\"}\n            
+        {adjustment === \"extend\" && \"Extended +2\"}\n                    {adjustment === \"shorte
+n\" && \"Shortened −2\"}\n                    {!adjustment && \"Choose Keep / Extend / Shorten\"}\n 
+                 </span>\n                </div>\n              </div>\n\n              <div classNa
+me=\"action-row\">\n                <button\n                  type=\"button\"\n                  cl
+assName={[\"action-btn action-keep\", adjustment === \"keep\" ? \"action-btn-active\" : \"\"].filter
+(Boolean).join(\" \")}\n                  disabled={noOfWeeks === null}\n                  onClick={
+() => applyAdjustment(\"keep\")}\n                >\n                  Keep\n                </butto
+n>\n                <button\n                  type=\"button\"\n                  className={[\"acti
+on-btn action-extend\", adjustment === \"extend\" ? \"action-btn-active\" : \"\"].filter(Boolean).jo
+in(\" \")}\n                  disabled={noOfWeeks === null}\n                  onClick={() => applyA
+djustment(\"extend\")}\n                >\n                  Extend +2\n                </button>\n 
+               <button\n                  type=\"button\"\n                  className={[\"action-bt
+n action-shorten\", adjustment === \"shorten\" ? \"action-btn-active\" : \"\"].filter(Boolean).join(
+\" \")}\n                  disabled={noOfWeeks === null}\n                  onClick={() => applyAdju
+stment(\"shorten\")}\n                >\n                  Shorten −2\n                </button>\n  
+            </div>\n\n              <button\n                type=\"button\"\n                classN
+ame=\"primary-btn w-full\"\n                disabled={!canContinue}\n                onClick={() => 
+{\n                  setStage(2);\n                  setActiveField(\"recentInjection\");\n         
+         setDigitBuffer(\"\");\n                }}\n              >\n                Continue to Sta
+ge 2 →\n              </button>\n            </div>\n\n            <div className=\"panel\">\n      
+        <header className=\"panel-header mb-4\">\n                <h2 className=\"panel-title text-l
+g\">Number pad</h2>\n                <p className=\"panel-sub\">\n                  Select a date fi
+eld, then type DDMM (year {YEAR_HINT}) or DDMMYYYY.\n                </p>\n              </header>\n
+              <NumberPad\n                onDigit={onDigit}\n                onClear={onClear}\n    
+            onBackspace={() => setDigitBuffer((p) => p.slice(0, -1))}\n                onToday={onTo
+day}\n              />\n            </div>\n          </div>\n        ) : (\n          <div classNam

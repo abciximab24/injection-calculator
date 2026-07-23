@@ -1,0 +1,20 @@
+"req\">required · pick one</span>\n                </h3>\n  
+              <div className=\"chip-row\">\n                
+  <Chip label=\"wAMD\" selected={diagnosis === \"wAMD\"} onC
+lick={() => setDiagnosis(\"wAMD\")} />\n                  <C
+hip label=\"PCV\" selected={diagnosis === \"PCV\"} onClick={
+() => setDiagnosis(\"PCV\")} />\n                </div>\n   
+           </section>\n\n              <section>\n          
+      <h3 className=\"section-label\">\n                  On
+ly eye <span className=\"opt\">optional · pick one or none</
+span>\n                </h3>\n                <div className
+=\"chip-row\">\n                  <Chip\n                   
+ label=\"RE only eye\"\n                    selected={onlyEy
+e === \"RE only eye\"}\n                    onClick={() => s
+etOnlyEye(onlyEye === \"RE only eye\" ? null : \"RE only eye
+\")}\n                    optional\n                  />\n  
+                <Chip\n                    label=\"LE only e
+ye\"\n                    selected={onlyEye === \"LE only ey
+e\"}\n                    onClick={() => setOnlyEye(onlyEye 
+=== \"LE only eye\" ? null : \"LE only eye\")}\n            
+        optional\n                  />\n                </di

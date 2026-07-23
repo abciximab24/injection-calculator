@@ -1,0 +1,20 @@
+, and drug.\");\n      return;\n    }\n    const result = bu
+ildBarcodeText(\n      nextInjectionWeeks,\n      eye,\n    
+  diagnosis,\n      drug,\n      recentInjection,\n      onl
+yEye,\n      fuOctBefore\n    );\n    if (!result) {\n      
+setError(\"Could not calculate Q-weeks from the recent injec
+tion date.\");\n      return;\n    }\n    setBarcodeText(res
+ult.text);\n    setQWeeks(result.qWeeks);\n    try {\n      
+const url = await QRCode.toDataURL(result.text, {\n        e
+rrorCorrectionLevel: \"M\",\n        margin: 2,\n        wid
+th: 280,\n        color: { dark: \"#0f172a\", light: \"#ffff
+ff\" },\n      });\n      setQrDataUrl(url);\n    } catch {\
+n      setError(\"Failed to generate QR code.\");\n    }\n  
+}\n\n  useEffect(() => {\n    setBarcodeText(null);\n    set
+QrDataUrl(null);\n    setQWeeks(null);\n  }, [eye, diagnosis
+, drug, recentInjection, onlyEye, fuOctBefore, nextInjection
+Weeks]);\n\n  const stageLabel = useMemo(\n    () => (stage 
+=== 1 ? \"Interval calculator\" : \"Barcode generator\"),\n 
+   [stage]\n  );\n\n  return (\n    <div className=\"app-she
+ll\">\n      <header className=\"app-header\">\n        <div
+>\n          <p className=\"app-kicker\">Clinical tool</p>\n

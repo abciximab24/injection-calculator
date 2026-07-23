@@ -1,0 +1,40 @@
+\"\");\n  return (\n    <button\n      type=\"button\"\n      onClick={onSelect}\n      className={[
+\"date-field\", active ? \"date-field-active\" : \"\"]\n        .filter(Boolean)\n        .join(\" \
+")}\n    >\n      <span className=\"date-field-label\">{label}</span>\n      <span className=\"date-
+field-value font-mono tracking-wide\">{display}</span>\n    </button>\n  );\n}\n\nfunction NumberPad
+({\n  onDigit,\n  onClear,\n  onBackspace,\n  onToday,\n}: {\n  onDigit: (d: string) => void;\n  onC
+lear: () => void;\n  onBackspace: () => void;\n  onToday: () => void;\n}) {\n  return (\n    <div cl
+assName=\"grid grid-cols-3 gap-2\">\n      {[\"1\", \"2\", \"3\", \"4\", \"5\", \"6\", \"7\", \"8\",
+ \"9\"].map((k) => (\n        <button key={k} type=\"button\" onClick={() => onDigit(k)} className=\
+"num-key\">\n          {k}\n        </button>\n      ))}\n      <button type=\"button\" onClick={onC
+lear} className=\"num-key num-key-muted\">\n        C\n      </button>\n      <button type=\"button\
+" onClick={() => onDigit(\"0\")} className=\"num-key\">\n        0\n      </button>\n      <button t
+ype=\"button\" onClick={onBackspace} className=\"num-key num-key-muted\" aria-label=\"Backspace\">\n
+        ⌫\n      </button>\n      <button type=\"button\" onClick={onToday} className=\"col-span-3 n
+um-key num-key-today\">\n        Today\n      </button>\n    </div>\n  );\n}\n\n/* ── main app ─────
+─────────────────────────────────────── */\nexport default function Home() {\n  const [stage, setSta
+ge] = useState<Stage>(1);\n  const [lastInjection, setLastInjection] = useState(\"\");\n  const [oct
+M, setOctM] = useState(\"\");\n  const [noOfWeeks, setNoOfWeeks] = useState<number | null>(null);\n 
+ const [nextInjectionWeeks, setNextInjectionWeeks] = useState<number | null>(null);\n  const [adjust
+ment, setAdjustment] = useState<Adjustment>(null);\n\n  const [recentInjection, setRecentInjection] 
+= useState(\"\");\n  const [eye, setEye] = useState<Eye | null>(null);\n  const [diagnosis, setDiagn
+osis] = useState<Diagnosis | null>(null);\n  const [onlyEye, setOnlyEye] = useState<OnlyEye>(null);\
+n  const [drug, setDrug] = useState<Drug | null>(null);\n  const [fuOctBefore, setFuOctBefore] = use
+State(false);\n\n  const [activeField, setActiveField] = useState<DateField>(\"lastInjection\");\n  
+const [digitBuffer, setDigitBuffer] = useState(\"\");\n\n  const [barcodeText, setBarcodeText] = use
+State<string | null>(null);\n  const [qWeeks, setQWeeks] = useState<number | null>(null);\n  const [
+qrDataUrl, setQrDataUrl] = useState<string | null>(null);\n  const [error, setError] = useState<stri
+ng | null>(null);\n\n  const recompute = useCallback(\n    (last: string, oct: string, adj: Adjustme
+nt) => {\n      const weeks = last && oct ? weeksBetween(last, oct) : null;\n      setNoOfWeeks(week
+s);\n      if (weeks === null) {\n        setNextInjectionWeeks(null);\n        return;\n      }\n  
+    if (adj === \"keep\") setNextInjectionWeeks(weeks);\n      else if (adj === \"extend\") setNextI
+njectionWeeks(weeks + 2);\n      else if (adj === \"shorten\") setNextInjectionWeeks(weeks - 2);\n  
+    else setNextInjectionWeeks(null);\n    },\n    []\n  );\n\n  const commitBuffer = useCallback(\n
+    (field: DateField, buffer: string) => {\n      const iso = bufferToISO(buffer, YEAR_HINT);\n    
+  if (!iso) return;\n      if (field === \"lastInjection\") {\n        setLastInjection(iso);\n     
+   recompute(iso, octM, adjustment);\n      } else if (field === \"octM\") {\n        setOctM(iso);\
+n        recompute(lastInjection, iso, adjustment);\n      } else {\n        setRecentInjection(iso)
+;\n      }\n      setDigitBuffer(\"\");\n    },\n    [adjustment, lastInjection, octM, recompute]\n 
+ );\n\n  const onDigit = useCallback(\n    (d: string) => {\n      setDigitBuffer((prev) => {\n     
+   const next = (prev + d).replace(/\\D/g, \"\").slice(0, 8);\n        if (next.length === 4 || next
+.length === 8) {\n          queueMicrotask(() => commitBuffer(activeField, next));\n        }\n     
