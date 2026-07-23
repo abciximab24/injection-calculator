@@ -1,8 +1,0 @@
-{
-  "target": "production",
-  "name": "injection-calculator",
-  "teamId": "team_hC9PnVUFWAJDr1j3L9QwNZkZ",
-  "projectSettings": {
-    "framework": "nextjs"
-  }
-}

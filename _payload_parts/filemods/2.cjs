@@ -1,1 +1,0 @@
-module.exports="import type { NextConfig } from \"next\";\nconst nextConfig: NextConfig = {};\nexport default nextConfig;\n";
